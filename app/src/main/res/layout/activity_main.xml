@@ -41,5 +41,28 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
+    <TextView
+        android:id="@+id/tvTelefone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Telefone:"
+        app:layout_constraintTop_toBottomOf="@id/etNomeCompleto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <EditText
+        android:id="@+id/etTelefone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Ex: 12-93456-7890"
+        app:layout_constraintTop_toBottomOf="@id/tvTelefone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
