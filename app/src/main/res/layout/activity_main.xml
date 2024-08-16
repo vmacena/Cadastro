@@ -121,5 +121,27 @@
             android:text="Feminino" />
     </RadioGroup>
 
+    <TextView
+        android:id="@+id/tvCidade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Cidade:"
+        app:layout_constraintTop_toBottomOf="@id/rgSexo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <EditText
+        android:id="@+id/etCidade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvCidade"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
