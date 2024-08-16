@@ -59,18 +59,35 @@ class MainActivity : AppCompatActivity() {
             val uf =
                 spUf.selectedItem.toString()
 
-            val formulario = Formulario(nomeCompleto, telefone, email, ingressarListaEmails, sexo, cidade, uf)
+            val formulario = Formulario(nomeCompleto,
+                telefone,
+                email,
+                ingressarListaEmails,
+                sexo,
+                cidade,
+                uf)
+
             Toast.makeText(this, formulario.toString(), Toast.LENGTH_LONG).show()
         }
 
         btnLimpar.setOnClickListener {
-            etNomeCompleto.text.clear()
-            etTelefone.text.clear()
-            etEmail.text.clear()
-            cbListaEmails.isChecked = false
-            rgSexo.clearCheck()
-            etCidade.text.clear()
-            spUf.setSelection(0)
+            val nomeCompleto = etNomeCompleto.text.toString()
+            val telefone = etTelefone.text.toString()
+            val email = etEmail.text.toString()
+            val cidade = etCidade.text.toString()
+            val uf = spUf.selectedItem.toString()
+
+            if (nomeCompleto.isEmpty() && telefone.isEmpty() && email.isEmpty() && !cbListaEmails.isChecked && rgSexo.checkedRadioButtonId == -1 && cidade.isEmpty() && uf == estados[0]) {
+                Toast.makeText(this, "Preencha os campos antes de limpar", Toast.LENGTH_SHORT).show()
+            } else {
+                etNomeCompleto.text.clear()
+                etTelefone.text.clear()
+                etEmail.text.clear()
+                cbListaEmails.isChecked = false
+                rgSexo.clearCheck()
+                etCidade.text.clear()
+                spUf.setSelection(0)
+            }
         }
     }
 }
