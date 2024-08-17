@@ -29,13 +29,20 @@ class MainActivity : AppCompatActivity() {
         val btnSalvar: Button = findViewById(R.id.btnSalvar)
 
         estados = resources.getStringArray(R.array.estados_brasil)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, estados)
+        val adapter = ArrayAdapter(
+            this, android.R.layout.simple_spinner_item, estados)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spUf.adapter = adapter
 
         val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun beforeTextChanged(s: CharSequence?,
+                                           start: Int,
+                                           count: Int,
+                                           after: Int) {}
+            override fun onTextChanged(s: CharSequence?,
+                                       start: Int,
+                                       before: Int,
+                                       count: Int) {
                 checkFieldsAndToggleButton()
             }
             override fun afterTextChanged(s: Editable?) {}
@@ -49,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         cbListaEmails.setOnCheckedChangeListener { _, _ -> checkFieldsAndToggleButton() }
         rgSexo.setOnCheckedChangeListener { _, _ -> checkFieldsAndToggleButton() }
         spUf.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected
+                        (parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 checkFieldsAndToggleButton()
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -68,7 +76,13 @@ class MainActivity : AppCompatActivity() {
             val cidade = etCidade.text.toString()
             val uf = spUf.selectedItem.toString()
 
-            val formulario = Formulario(nomeCompleto, telefone, email, ingressarListaEmails, sexo, cidade, uf)
+            val formulario = Formulario(nomeCompleto,
+                telefone,
+                email,
+                ingressarListaEmails,
+                sexo,
+                cidade,
+                uf)
 
             Toast.makeText(this, formulario.toString(), Toast.LENGTH_LONG).show()
         }
@@ -80,8 +94,19 @@ class MainActivity : AppCompatActivity() {
             val cidade = etCidade.text.toString()
             val uf = spUf.selectedItem.toString()
 
-            if (nomeCompleto.isEmpty() && telefone.isEmpty() && email.isEmpty() && !cbListaEmails.isChecked && rgSexo.checkedRadioButtonId == -1 && cidade.isEmpty() && uf == estados[0]) {
-                Toast.makeText(this, "Preencha os campos antes de limpar", Toast.LENGTH_SHORT).show()
+            if (nomeCompleto.
+                isEmpty() && telefone.
+                isEmpty() && email.
+                isEmpty() &&
+                !cbListaEmails.isChecked &&
+                rgSexo.checkedRadioButtonId == -1 &&
+                cidade.isEmpty() &&
+                uf == estados[0]) {
+
+                Toast.makeText(
+                    this, "Preencha os campos antes de limpar",
+                    Toast.LENGTH_SHORT).show()
+
             } else {
                 etNomeCompleto.text.clear()
                 etTelefone.text.clear()
@@ -112,6 +137,14 @@ class MainActivity : AppCompatActivity() {
         val cidade = etCidade.text.toString()
         val uf = spUf.selectedItem.toString()
 
-        btnSalvar.isEnabled = nomeCompleto.isNotEmpty() || telefone.isNotEmpty() || email.isNotEmpty() || cbListaEmails.isChecked || rgSexo.checkedRadioButtonId != -1 || cidade.isNotEmpty() || uf != estados[0]
+        btnSalvar.
+        isEnabled = nomeCompleto.
+        isNotEmpty() || telefone.
+        isNotEmpty() || email.
+        isNotEmpty() || cbListaEmails.
+        isChecked || rgSexo.
+        checkedRadioButtonId != -1 ||
+                cidade.isNotEmpty() ||
+                uf != estados[0]
     }
 }
