@@ -1,12 +1,14 @@
 package com.ifsp.cadastro
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import android.text.TextWatcher
+import android.text.Editable
 
 class MainActivity : AppCompatActivity() {
     private lateinit var estados: Array<String>
@@ -35,14 +37,8 @@ class MainActivity : AppCompatActivity() {
         spUf.adapter = adapter
 
         val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?,
-                                           start: Int,
-                                           count: Int,
-                                           after: Int) {}
-            override fun onTextChanged(s: CharSequence?,
-                                       start: Int,
-                                       before: Int,
-                                       count: Int) {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 checkFieldsAndToggleButton()
             }
             override fun afterTextChanged(s: Editable?) {}
@@ -56,8 +52,7 @@ class MainActivity : AppCompatActivity() {
         cbListaEmails.setOnCheckedChangeListener { _, _ -> checkFieldsAndToggleButton() }
         rgSexo.setOnCheckedChangeListener { _, _ -> checkFieldsAndToggleButton() }
         spUf.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected
-                        (parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 checkFieldsAndToggleButton()
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -76,15 +71,9 @@ class MainActivity : AppCompatActivity() {
             val cidade = etCidade.text.toString()
             val uf = spUf.selectedItem.toString()
 
-            val formulario = Formulario(nomeCompleto,
-                telefone,
-                email,
-                ingressarListaEmails,
-                sexo,
-                cidade,
-                uf)
+            val formulario = Formulario(nomeCompleto, telefone, email, ingressarListaEmails, sexo, cidade, uf)
 
-            Toast.makeText(this, formulario.toString(), Toast.LENGTH_LONG).show()
+            showCustomToast(formulario.toString())
         }
 
         btnLimpar.setOnClickListener {
@@ -94,19 +83,11 @@ class MainActivity : AppCompatActivity() {
             val cidade = etCidade.text.toString()
             val uf = spUf.selectedItem.toString()
 
-            if (nomeCompleto.
-                isEmpty() && telefone.
-                isEmpty() && email.
-                isEmpty() &&
-                !cbListaEmails.isChecked &&
-                rgSexo.checkedRadioButtonId == -1 &&
-                cidade.isEmpty() &&
-                uf == estados[0]) {
+            if (nomeCompleto.isEmpty() && telefone.isEmpty() && email.isEmpty() &&
+                !cbListaEmails.isChecked && rgSexo.checkedRadioButtonId == -1 &&
+                cidade.isEmpty() && uf == estados[0]) {
 
-                Toast.makeText(
-                    this, "Preencha os campos antes de limpar",
-                    Toast.LENGTH_SHORT).show()
-
+                showCustomToast("Preencha os campos antes de limpar")
             } else {
                 etNomeCompleto.text.clear()
                 etTelefone.text.clear()
@@ -137,14 +118,22 @@ class MainActivity : AppCompatActivity() {
         val cidade = etCidade.text.toString()
         val uf = spUf.selectedItem.toString()
 
-        btnSalvar.
-        isEnabled = nomeCompleto.
-        isNotEmpty() || telefone.
-        isNotEmpty() || email.
-        isNotEmpty() || cbListaEmails.
-        isChecked || rgSexo.
-        checkedRadioButtonId != -1 ||
-                cidade.isNotEmpty() ||
-                uf != estados[0]
+        btnSalvar.isEnabled = nomeCompleto.isNotEmpty() || telefone.isNotEmpty() || email.isNotEmpty() ||
+                cbListaEmails.isChecked || rgSexo.checkedRadioButtonId != -1 || cidade.isNotEmpty() || uf != estados[0]
+    }
+
+    @SuppressLint("MissingInflatedId")
+    private fun showCustomToast(message: String) {
+        val inflater: LayoutInflater = layoutInflater
+        val layout: View = inflater.inflate(R.layout.custom_toast, findViewById(R.id.custom_toast_container))
+
+        val text: TextView = layout.findViewById(R.id.toast_text)
+        text.text = message
+
+        with (Toast(applicationContext)) {
+            duration = Toast.LENGTH_LONG
+            view = layout
+            show()
+        }
     }
 }
